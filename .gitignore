@@ -2,3 +2,6 @@ secrets.yaml
 venv
 *.pyc
 __pycache__
+state.yaml
+state_sandbox.yaml
+*.swp

@@ -2,7 +2,7 @@ import yaml
 import sched
 import time
 
-from crypto_trader import update
+from crypto_trader.trader import Trader
 
 # Constants
 CONFIG_FILE = 'config.yaml'
@@ -16,13 +16,5 @@ def get_config():
         config.update(yaml.load(secrets_file))
     return config
 
-def start_scheduler(config):
-    scheduler = sched.scheduler(time.time, time.sleep)
-    def run_task(c): 
-        update.update(c)
-        scheduler.enter(30, 1, run_task, (config, ))
-    scheduler.enter(0, 1, run_task, (config, ))
-    scheduler.run()
-
 if __name__ == '__main__':
-    start_scheduler(get_config())
+    Trader(get_config()).start()
