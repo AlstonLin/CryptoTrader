@@ -28,6 +28,7 @@ class API:
             self.nonce = 0
 
     def buy(self, symbol, quantity, price):
+        print('BUY {} x {} @ {}'.format(quantity, symbol, price))
         response = self._makeRequest(
             '/v1/order/new',
             {
@@ -41,6 +42,7 @@ class API:
         return response
 
     def sell(self, symbol, quantity, price):
+        print('SELL {} x {} @ {}'.format(quantity, symbol, price))
         response = self._makeRequest(
             '/v1/order/new',
             {
@@ -57,8 +59,7 @@ class API:
         data = {}
         for symbol in ['btcusd', 'ethusd']:
             url = '{0}/v1/trades/{1}'.format(
-                #SANDBOX_API if self.sandbox else REAL_API,
-                REAL_API,
+                SANDBOX_API if self.sandbox else REAL_API,
                 symbol,
             )
             response = requests.request('GET', url).json()
@@ -69,8 +70,7 @@ class API:
         data = {}
         for symbol in ['btcusd', 'ethusd']:
             url = '{0}/v1/pubticker/{1}'.format(
-                #SANDBOX_API if self.sandbox else REAL_API,
-                REAL_API,
+                SANDBOX_API if self.sandbox else REAL_API,
                 symbol,
             )
             response = requests.request('GET', url).json()
@@ -83,7 +83,7 @@ class API:
             {},
         )
         return {
-            balance['currency']: balance['available'] for balance in response
+            balance['currency']: balance['amount'] for balance in response
         }
 
     def _makeRequest(self, url, payload):

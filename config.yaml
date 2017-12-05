@@ -1,2 +1,6 @@
 checkEvery: 30
 sandbox: true
+targetPct:
+  ETH: 25
+  BTC: 50
+minTradePercentage: 5
